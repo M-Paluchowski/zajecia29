@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-class User {
+public class User {
 
     @Id
     @GeneratedValue
