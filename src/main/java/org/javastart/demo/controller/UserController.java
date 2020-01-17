@@ -59,4 +59,11 @@ public class UserController {
         Address result = addressService.findOne(addressId);
         return result.toString();
     }
+
+    @GetMapping("/getUser")
+    @ResponseBody
+    public String findUser(@RequestParam Long userId) {
+        User result = userService.findOne(userId);
+        return result.toString();
+    }
 }
