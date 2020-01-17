@@ -4,7 +4,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -19,6 +22,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private Set<EmailAddress> emailAddresses = new HashSet<>();
+
     public User() {
     }
 
@@ -26,6 +32,11 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+    }
+
+    public void addEmailAddress(EmailAddress emailAddress) {
+        emailAddresses.add(emailAddress);
+        emailAddress.setUser(this);
     }
 
     public Long getId() {
@@ -60,6 +71,14 @@ public class User {
         this.address = address;
     }
 
+    public Set<EmailAddress> getEmailAddresses() {
+        return emailAddresses;
+    }
+
+    public void setEmailAddresses(final Set<EmailAddress> emailAddresses) {
+        this.emailAddresses = emailAddresses;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -67,6 +86,7 @@ public class User {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", address=" + address +
+            ", emailAddresses=" + emailAddresses +
             '}';
     }
 }
