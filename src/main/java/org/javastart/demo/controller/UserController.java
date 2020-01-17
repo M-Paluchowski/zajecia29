@@ -2,6 +2,7 @@ package org.javastart.demo.controller;
 
 import org.javastart.demo.model.Address;
 import org.javastart.demo.model.EmailAddress;
+import org.javastart.demo.model.Project;
 import org.javastart.demo.model.User;
 import org.javastart.demo.repository.UserRepository;
 import org.javastart.demo.service.AddressService;
@@ -29,16 +30,26 @@ public class UserController {
     public String saveUser() {
         Address address = new Address("Wrocław", "Piękna", "182", "1");
 
+        Project javaStart = new Project("JavaStart");
+        Project springStart = new Project("SpringStart");
+
         User user = new User("Jan", "Kowalski", address);
 //        address.setUser(user);
         EmailAddress gmail = new EmailAddress("jan@gmail.com");
         EmailAddress wp = new EmailAddress("jan.kowalski@wp.pl");
-
         user.addEmailAddress(gmail);
         user.addEmailAddress(wp);
-
+        user.addProject(javaStart);
+        user.addProject(springStart);
         userService.saveUser(user);
 //        addressService.saveAddress(address);
+
+        final Address address2 = new Address("Wrocław", "Długa", "123", "666");
+        final User user2 = new User("Marcin", "Kowalski", address2);
+        user2.addProject(javaStart);
+        user2.addProject(springStart);
+        userService.saveUser(user2);
+
         return "Success";
     }
 
