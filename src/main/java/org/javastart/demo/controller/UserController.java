@@ -29,16 +29,17 @@ public class UserController {
         Address address = new Address("Wrocław", "Piękna", "182", "1");
 
         User user = new User("Jan", "Kowalski", address);
+//        address.setUser(user);
         userService.saveUser(user);
 
 //        addressService.saveAddress(address);
         return "Success";
     }
 
-    @GetMapping("/getUser")
+    @GetMapping("/getAddress")
     @ResponseBody
-    public String findUser(@RequestParam Long userId) {
-        User result = userService.findOne(userId);
+    public String findAddress(@RequestParam Long addressId) {
+        Address result = addressService.findOne(addressId);
         return result.toString();
     }
 }
